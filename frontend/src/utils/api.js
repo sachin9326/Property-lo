@@ -1,19 +1,7 @@
 import axios from 'axios';
 
-const getApiUrl = () => {
-  const envUrl = import.meta.env.VITE_API_URL;
-  if (envUrl && envUrl.trim() !== '') return envUrl.trim();
-  if (typeof window !== 'undefined' && window.location) {
-    const hostname = window.location.hostname;
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      return 'http://localhost:5000';
-    }
-  }
-  // Production default fallback pointing to deployed Render backend
-  return 'https://propertylo.onrender.com';
-};
-
-const API_URL = getApiUrl();
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = API_BASE_URL;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -27,11 +15,11 @@ export const getImageUrl = (path) => {
   if (path.startsWith('http')) return path;
   // Property images are served from frontend public folder, not backend
   if (path.startsWith('/property-images/')) return path;
-  const base = API_URL || 'https://propertylo.onrender.com';
+  const base = API_BASE_URL;
   return `${base}${path.startsWith('/') ? '' : '/'}${path}`;
 };
 
-console.log('API Base URL:', API_URL);
+console.log('API Base URL:', API_BASE_URL);
 
 api.interceptors.request.use((config) => {
   const userInfo = localStorage.getItem('userInfo');
@@ -72,7 +60,7 @@ export const ensureBackendReady = () => {
   if (backendReadyPromise) return backendReadyPromise;
   
   backendReadyPromise = new Promise(async (resolve) => {
-    const targetUrl = `${API_URL || 'https://propertylo.onrender.com'}/api/health`;
+    const targetUrl = `${API_BASE_URL}/api/health`;
     for (let i = 0; i < 2; i++) {
       try {
         await axios.get(targetUrl, { timeout: 45000 });
