@@ -3,6 +3,11 @@
 @theme {
   --color-primary: #3b82f6;
   --color-secondary: #0f172a;
+  --font-sans: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Mobile filter sidebar slide-in animation */
