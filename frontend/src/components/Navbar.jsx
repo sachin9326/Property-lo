@@ -28,9 +28,9 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 text-primary">
           <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20 flex-shrink-0">
-            <span className="text-white font-extrabold text-sm leading-none">LE</span>
+            <span className="text-white font-extrabold text-sm leading-none">PL</span>
           </div>
-          <span className="text-xl font-extrabold tracking-tight text-slate-800">LuxeEstates</span>
+          <span className="text-xl font-extrabold tracking-tight text-slate-800">Property_lo</span>
         </Link>
 
         {/* Desktop Nav */}
